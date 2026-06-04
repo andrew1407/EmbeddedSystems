@@ -6,14 +6,14 @@ A collection of university lab works on embedded and real-time systems, implemen
 
 | Lab | Topic | Language |
 | --- | --- | --- |
-| [`1-lab`](1-lab) | Random harmonic signal generation; mean and variance; computational complexity vs. number of harmonics | Python |
-| [`2-lab`](2-lab) | Auto- and cross-correlation; `list` vs. `array` performance comparison | Python |
-| [`3-lab`](3-lab) | Discrete Fourier transform (DFT); `list` vs. `array` performance comparison | Python |
-| [`4-lab`](4-lab) | Fast Fourier transform (FFT) with memoization, compared against DFT | Python |
+| [`1-lab`](1-lab/1-lab.py) | Random harmonic signal generation; mean and variance; computational complexity vs. number of harmonics | Python |
+| [`2-lab`](2-lab/2-lab.py) | Auto- and cross-correlation; `list` vs. `array` performance comparison | Python |
+| [`3-lab`](3-lab/3-lab.py) | Discrete Fourier transform (DFT); `list` vs. `array` performance comparison | Python |
+| [`4-lab`](4-lab/4-lab.py) | Fast Fourier transform (FFT) with memoization, compared against DFT | Python |
 | [`5-lab`](5-lab) | Fermat factorization of an integer (Android app) | Kotlin |
 | [`6-lab`](6-lab) | Perceptron learning with iteration/time deadlines (Android app) | Kotlin |
 | [`7-lab`](7-lab) | Genetic algorithm solving a linear equation `a·x1 + b·x2 + c·x3 + d·x4 = y` (Android app) | Kotlin |
-| [`rgr`](rgr) | Real-time task scheduling: FIFO, Earliest Deadline First (EDF), and Rate Monotonic (RM) over an Erlang/Poisson task flow, with plots and JSON output | Python |
+| [`rgr`](rgr/main.py) | Real-time task scheduling: FIFO, Earliest Deadline First (EDF), and Rate Monotonic (RM) over an Erlang/Poisson task flow, with plots and JSON output | Python |
 
 ## Tech stack
 
