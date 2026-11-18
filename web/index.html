@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Embedded Systems Labs</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <script src="theme.js"></script>
   <meta name="description" content="Run the EmbeddedSystems labs in your browser: harmonic signals, correlation, DFT and FFT in Python via PyScript, the Android labs' Kotlin compiled to WebAssembly, and a real-time scheduling study.">
   <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
   <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
@@ -36,7 +37,7 @@
     * { box-sizing: border-box; }
     body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
     .wrap { max-width: 1240px; margin: 0 auto; padding: 28px 16px 64px; }
-    header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
     header img { flex: none; width: 52px; height: 52px; }
     h1 { font-size: 24px; margin: 0; letter-spacing: -.01em; }
     header p { margin: 2px 0 0; color: var(--muted); }
@@ -171,6 +172,7 @@
       <h1>Embedded Systems Labs</h1>
       <p>The <a href="https://github.com/Andrew1407/EmbeddedSystems">EmbeddedSystems</a> labs, running in your browser. The Python labs run their own source through PyScript, and the Android labs' Kotlin code is compiled to WebAssembly.</p>
     </div>
+    <button class="theme-toggle" data-theme-toggle></button>
   </header>
 
   <nav class="labs" id="nav" role="tablist" aria-label="Labs"></nav>
