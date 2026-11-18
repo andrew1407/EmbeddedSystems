@@ -1,5 +1,13 @@
 # EmbeddedSystems
 
+<p align="center">
+  <a href="https://andrew1407.github.io/EmbeddedSystems/" title="Open the labs in the browser">
+    <img src="web/icon.svg" alt="Embedded Systems Labs" width="96" height="96">
+  </a>
+</p>
+
+[![pages deploy badge](https://github.com/andrew1407/EmbeddedSystems/actions/workflows/pages.yml/badge.svg)](https://andrew1407.github.io/EmbeddedSystems/)
+
 A collection of university lab works on embedded and real-time systems, implemented in Python and Kotlin. The Python labs cover signal modeling and processing plus a real-time scheduling study; the Kotlin labs are Android apps demonstrating a Fermat factorization, a perceptron, and a genetic algorithm.
 
 ## Labs
@@ -14,6 +22,22 @@ A collection of university lab works on embedded and real-time systems, implemen
 | [`6-lab`](6-lab) | Perceptron learning with iteration/time deadlines (Android app) | Kotlin |
 | [`7-lab`](7-lab) | Genetic algorithm solving a linear equation `a·x1 + b·x2 + c·x3 + d·x4 = y` (Android app) | Kotlin |
 | [`rgr`](rgr/main.py) | Real-time task scheduling: FIFO, Earliest Deadline First (EDF), and Rate Monotonic (RM) over an Erlang/Poisson task flow, with plots and JSON output | Python |
+
+## Showcase
+
+**[Open the labs in the browser](https://andrew1407.github.io/EmbeddedSystems/)**. Every lab runs from its own source code, with adjustable parameters, interactive charts, and buttons to copy each chart (PNG or CSV), table and set of results.
+
+- **Python labs (1–4, `rgr`)** run in [PyScript](https://pyscript.net). [`web/showcase.py`](web/showcase.py) loads each lab script's functions (skipping its top-level plotting code) and calls them. The `rgr/scheduling` package is imported unchanged.
+- **Kotlin labs (5–7)** are compiled to WebAssembly from the Android projects' algorithm sources (`FermaFunction.kt`, `perceptron/`, `geneticAlgorithm/`) by the Kotlin/Wasm build in [`web/kotlin`](web/kotlin). The Android UI files are left out.
+
+Run it locally (needs JDK 17+):
+
+```sh
+cd web/kotlin && ./gradlew showcase && cd ../..   # builds web/kotlin-wasm/
+python -m http.server                             # then open http://localhost:8000/web/
+```
+
+The [pages workflow](.github/workflows/pages.yml) builds and deploys it on every push to `main`.
 
 ## Tech stack
 
@@ -69,16 +93,21 @@ EmbeddedSystems/
 │   └── app/src/main/java/com/diches/embeddedsystems/perceptron/
 ├── 7-lab/                    # Android app: genetic algorithm
 │   └── app/src/main/java/com/diches/embeddedsystems/geneticAlgorithm/
-└── rgr/                      # real-time scheduling study
-    ├── main.py
-    ├── plots.py
-    └── scheduling/
-        ├── flow.py           # Erlang/Poisson task flow
-        ├── fifo.py           # FIFO scheduler
-        ├── edf.py            # Earliest Deadline First
-        ├── rm.py             # Rate Monotonic
-        ├── priority_scheduler.py
-        ├── analyzer.py       # wait time, idle, missed deadlines
-        ├── datastructs.py
-        └── tools.py
+├── rgr/                      # real-time scheduling study
+│   ├── main.py
+│   ├── plots.py
+│   └── scheduling/
+│       ├── flow.py           # Erlang/Poisson task flow
+│       ├── fifo.py           # FIFO scheduler
+│       ├── edf.py            # Earliest Deadline First
+│       ├── rm.py             # Rate Monotonic
+│       ├── priority_scheduler.py
+│       ├── analyzer.py       # wait time, idle, missed deadlines
+│       ├── datastructs.py
+│       └── tools.py
+└── web/                      # GitHub Pages showcase
+    ├── index.html, app.js    # page, charts, copy buttons
+    ├── bridge.py, showcase.py, pyscript.toml   # PyScript glue for the Python labs
+    ├── icon.svg              # logo / favicon
+    └── kotlin/               # Kotlin/Wasm build of labs 5–7
 ```

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 66 66">
+  <!-- A microcontroller with a harmonic signal on its die, in the showcase's colours -->
+  <g stroke="#3557d6" stroke-width="3" stroke-linecap="round">
+    <path d="M20 4v8M32 4v8M44 4v8M20 52v8M32 52v8M44 52v8M4 20h8M4 32h8M4 44h8M52 20h8M52 32h8M52 44h8"/>
+  </g>
+  <rect x="11.5" y="11.5" width="41" height="41" rx="6" fill="#d8ecfb" stroke="#4a90c8" stroke-width="2.6"/>
+  <path d="M16.5 32c2.6-11 5.2-11 7.8 0s5.2 11 7.8 0 5.2-11 7.8 0 5.2 11 7.6 0" fill="none" stroke="#b8971b" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="18" cy="18" r="2" fill="#4a90c8"/>
+</svg>
