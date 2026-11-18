@@ -26,13 +26,12 @@ def calcSignal(harmonics=HARMONICS, wMax=W_MAX, dCalls=DCALLS):
 
 def memoize(calcFn):
   def wrapper(*args):
-    p = args[0]
-    memVal = memoize.memoized.get(p)
+    memVal = memoize.memoized.get(args)
     if memVal is not None:
       return memVal
 
     res = calcFn(*args)
-    memoize.memoized[p] = res
+    memoize.memoized[args] = res
     return res
 
   return wrapper

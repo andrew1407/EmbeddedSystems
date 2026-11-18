@@ -39,7 +39,7 @@ def getComplexityParams(iterable, amount):
     timeArr.append(signalEnd - start)
     getDx(xArr, getMx(xArr), DCALLS)
     paramsEnd = getTime()
-    timeChArr.append(signalEnd - paramsEnd)
+    timeChArr.append(paramsEnd - signalEnd)
 
   return harmonics, timeArr, timeChArr
 

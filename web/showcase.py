@@ -62,8 +62,7 @@ def lab1(harmonics, w_max, n, step, points):
     t=t, x=rl(x), mx=r(mx), dx=r(dx),
     harmonics=[int(h) for h in hs], ln_harmonics=rl(log(h) for h in hs),
     gen_ms=[ms(v) for v in gen_time],
-    # the lab records signalEnd - paramsEnd (negative); flip the sign to show a duration
-    param_ms=[ms(-v) for v in param_time],
+    param_ms=[ms(v) for v in param_time],
   )
 
 

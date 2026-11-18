@@ -194,8 +194,7 @@ const LABS = [
     fields: [...signalFields(64), ...sweepFields(10, 32)],
     hint: 'Use an even N: the FFT splits the samples into even and odd halves.',
     run: (p) => runPy('lab4', p),
-    render: (d) => `${d.max_diff > 1e-6 ? `<p class="note">The FFT doesn't match the DFT here (max |FFT − DFT| = ${fmt(d.max_diff)}). The lab's <code>memoize</code> caches <code>getCoef(p, N)</code> by <code>p</code> only, so coefficients for N and N/2 overwrite each other.</p>` : ''}
-      <div class="stats">${stat(msFmt(d.fft_ms), 'FFT time')}${stat(msFmt(d.dft_ms), 'DFT time')}${stat(fmt(d.max_diff), 'max |FFT − DFT|', d.max_diff > 1e-6 ? 'bad' : 'good')}</div>
+    render: (d) => `<div class="stats">${stat(msFmt(d.fft_ms), 'FFT time')}${stat(msFmt(d.dft_ms), 'DFT time')}${stat(fmt(d.max_diff), 'max |FFT − DFT|', d.max_diff > 1e-6 ? 'bad' : 'good')}</div>
       <div class="charts two">${signalChart(d)}
         ${chart({ title: 'Spectrum |F(p)|', x: 'p', y: '|F(p)|', series: [{ name: 'FFT', xs: d.t, ys: d.fft, color: '--c3' }, { name: 'DFT', xs: d.t, ys: d.dft, color: '--c2', dash: true }] })}</div>
       <div class="charts" style="margin-top:16px">${chart({ title: 'FFT time vs N', x: 'N', y: 'time, ms', series: [{ name: 'FFT', xs: d.sizes, ys: d.c_ms, color: '--c3' }] })}</div>`,
