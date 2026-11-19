@@ -27,7 +27,7 @@ A collection of university lab works on embedded and real-time systems, implemen
 
 **[Open the labs in the browser](https://andrew1407.github.io/EmbeddedSystems/)**. Every lab runs from its own source code, with adjustable parameters, interactive charts, and buttons to copy each chart (PNG or CSV), table and set of results.
 
-- **Python labs (1–4, `rgr`)** run in [PyScript](https://pyscript.net). [`web/showcase.py`](web/showcase.py) loads each lab script's functions (skipping its top-level plotting code) and calls them. The `rgr/scheduling` package is imported unchanged.
+- **Python labs (1–4, `rgr`)** run in [Pyodide](https://pyodide.org), in a Web Worker so the page never freezes. [`web/showcase.py`](web/showcase.py) loads each lab script's functions (skipping its top-level plotting code) and calls them. The `rgr/scheduling` package is imported unchanged.
 - **Kotlin labs (5–7)** are compiled to WebAssembly from the Android projects' algorithm sources (`FermaFunction.kt`, `perceptron/`, `geneticAlgorithm/`) by the Kotlin/Wasm build in [`web/kotlin`](web/kotlin). The Android UI files are left out.
 
 Run it locally (needs JDK 17+):
@@ -107,7 +107,8 @@ EmbeddedSystems/
 │       └── tools.py
 └── web/                      # GitHub Pages showcase
     ├── index.html, app.js    # page, charts, copy buttons
-    ├── bridge.py, showcase.py, pyscript.toml   # PyScript glue for the Python labs
+    ├── pyworker.js, worker.js, bridge.py, showcase.py, pyodide.toml   # Python labs in a Pyodide worker
+    ├── kt-worker.js          # runs the Kotlin/Wasm labs in a module worker
     ├── icon.svg              # logo / favicon
     └── kotlin/               # Kotlin/Wasm build of labs 5–7
 ```

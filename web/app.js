@@ -1,6 +1,7 @@
 // Embedded Systems Labs showcase: lab panels, SVG charts, and the two runtimes.
-// Python labs call window.pyRun (bridge.py, PyScript); Kotlin labs call the
-// WebAssembly module built from the Android labs' sources (kotlin/, ./gradlew showcase).
+// Python labs call window.pyRun (pyworker.js: bridge.py in a Pyodide Web Worker, worker.js); Kotlin labs
+// call the WebAssembly module built from the Android labs' sources (kotlin/, ./gradlew showcase)
+// through a module worker (kt-worker.js).
 
 const REPO = 'https://github.com/Andrew1407/EmbeddedSystems';
 const SRC = `${REPO}/tree/main`;
@@ -30,17 +31,31 @@ const whenPy = () => (pyReady ? Promise.resolve() : new Promise((r) => pyWaiters
 async function runPy(name, params) {
   await whenPy();
   await pause();
-  const res = JSON.parse(window.pyRun(name, JSON.stringify(params)));
+  const res = JSON.parse(await window.pyRun(name, JSON.stringify(params)));
   if (!res.ok) throw new Error(res.error);
   return res.data;
 }
 
-let ktModule = null;
-const kotlin = () => (ktModule ??= import('./kotlin-wasm/labs.mjs'));
+// Kotlin/Wasm runs in a module worker (kt-worker.js), started on first use.
+let ktWorker = null, ktSeq = 0;
+const ktPending = new Map();
+function kotlin() {
+  if (ktWorker) return ktWorker;
+  ktWorker = new Worker(new URL('./kt-worker.js', import.meta.url), { type: 'module' });
+  ktWorker.onmessage = ({ data: { id, result, error } }) => {
+    const p = ktPending.get(id); ktPending.delete(id);
+    error === undefined ? p.resolve(result) : p.reject(new Error(error));
+  };
+  ktWorker.onerror = (e) => {
+    for (const p of ktPending.values()) p.reject(new Error(e.message || 'Kotlin worker failed'));
+    ktPending.clear();
+  };
+  return ktWorker;
+}
 async function runKt(name, ...args) {
-  const k = await kotlin();
-  await pause();
-  return JSON.parse(k[name](...args));
+  const w = kotlin(), id = ++ktSeq;
+  const res = await new Promise((resolve, reject) => { ktPending.set(id, { resolve, reject }); w.postMessage({ id, name, args }); });
+  return JSON.parse(res);
 }
 
 // ------------------------------------------------------------------ charts --
@@ -536,11 +551,14 @@ async function run(lab) {
   const bad = invalid(lab, p);
   if (bad) { out.innerHTML = `<div class="err">${esc(bad)}</div>`; return; }
   st.running = true; st.ran = true;
-  btn.disabled = true; btn.textContent = lab.lang === 'py' && !pyReady ? 'Waiting for Python…' : 'Running…';
+  // Python and Kotlin run in workers, so the page stays responsive; show the elapsed time.
+  const t0 = Date.now();
+  const label = () => (lab.lang === 'py' && !pyReady ? 'Waiting for Python…' : `Running… ${Math.floor((Date.now() - t0) / 1000)} s`);
+  btn.disabled = true; btn.textContent = label();
+  const timer = setInterval(() => { btn.textContent = label(); }, 250);
   out.style.opacity = '.45';
   try {
     const data = await lab.run(p);
-    btn.textContent = 'Running…';
     out.innerHTML = `<div class="out-actions">${actions('results')}</div>` + lab.render(data, p);
     drawCharts(out);
     if (lab.id === 'rgr') bindGantt(out, data);
@@ -548,6 +566,7 @@ async function run(lab) {
     console.error(e);
     out.innerHTML = `<div class="err">${esc(e.message || e)}</div>`;
   } finally {
+    clearInterval(timer);
     st.running = false; btn.disabled = false; btn.textContent = 'Run'; out.style.opacity = '';
   }
 }

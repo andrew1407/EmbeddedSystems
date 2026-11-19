@@ -35,7 +35,7 @@ jobs:
         working-directory: web/kotlin
         run: ./gradlew showcase --no-daemon
 
-      # Mirror the repo layout so web/pyscript.toml can load ../1-lab/*.py and ../rgr/scheduling/*.py
+      # Mirror the repo layout so web/pyodide.toml can load ../1-lab/*.py and ../rgr/scheduling/*.py
       - name: Assemble site
         run: |
           mkdir -p _site/web _site/rgr

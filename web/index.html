@@ -6,9 +6,8 @@
   <title>Embedded Systems Labs</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <script src="theme.js"></script>
-  <meta name="description" content="Run the EmbeddedSystems labs in your browser: harmonic signals, correlation, DFT and FFT in Python via PyScript, the Android labs' Kotlin compiled to WebAssembly, and a real-time scheduling study.">
-  <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
-  <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+  <meta name="description" content="Run the EmbeddedSystems labs in your browser: harmonic signals, correlation, DFT and FFT in Python via Pyodide, the Android labs' Kotlin compiled to WebAssembly, and a real-time scheduling study.">
+  <script type="module" src="./pyworker.js"></script>
   <style>
     :root {
       --bg: #f6f7f9; --panel: #ffffff; --ink: #1b1f24; --muted: #5d6673; --line: #dfe3e8; --grid: #eceff3;
@@ -170,7 +169,7 @@
     <img src="icon.svg" alt="" width="52" height="52">
     <div>
       <h1>Embedded Systems Labs</h1>
-      <p>The <a href="https://github.com/Andrew1407/EmbeddedSystems">EmbeddedSystems</a> labs, running in your browser. The Python labs run their own source through PyScript, and the Android labs' Kotlin code is compiled to WebAssembly.</p>
+      <p>The <a href="https://github.com/Andrew1407/EmbeddedSystems">EmbeddedSystems</a> labs, running in your browser. The Python labs run their own source through Pyodide, and the Android labs' Kotlin code is compiled to WebAssembly.</p>
     </div>
     <button class="theme-toggle" data-theme-toggle></button>
   </header>
@@ -190,7 +189,6 @@
   <footer>Timings are measured in your browser, so they're slower than native Python or Android and vary between runs.</footer>
 </div>
 
-<script type="py" src="./bridge.py" config="./pyscript.toml"></script>
 <script type="module" src="./app.js"></script>
 </body>
 </html>
